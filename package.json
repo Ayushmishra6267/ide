@@ -1,0 +1,63 @@
+{
+  "name": "mini-ide",
+  "version": "0.1.0",
+  "description": "A small code editor built with Electron, React, Monaco and xterm.js",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"wait-on http://localhost:5173 && cross-env VITE_DEV=1 electron .\"",
+    "build": "vite build",
+    "start": "npm run build && electron .",
+    "rebuild": "electron-rebuild -f -w node-pty",
+    "dist": "vite build && electron-builder"
+  },
+  "optionalDependencies": {
+    "node-pty": "^1.0.0"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^3.6.0",
+    "@monaco-editor/react": "^4.6.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "@xterm/addon-fit": "^0.10.0",
+    "@xterm/xterm": "^5.5.0",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3",
+    "monaco-editor": "^0.52.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "vite": "^5.4.0",
+    "wait-on": "^7.2.0"
+  },
+  "author": "Your Name <you@example.com>",
+  "homepage": "https://example.com",
+  "build": {
+    "appId": "com.example.miniide",
+    "productName": "Mini IDE",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**",
+      "electron/**",
+      "package.json"
+    ],
+    "asarUnpack": [
+      "**/node_modules/node-pty/**"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.developer-tools"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Development"
+    }
+  }
+}
